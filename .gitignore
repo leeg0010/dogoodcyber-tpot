@@ -1,6 +1,42 @@
-# Ignore data folder
-data/
-_data/
-**/.DS_Store
-.idea
-install_tpot.log
+# Runtime data - do not commit
+data/*/log/
+data/**/log/
+*.log
+*.csv
+*.pcap
+*.pcapng
+
+# Large data directories
+data/elasticsearch/
+data/logstash/
+data/suricata/
+data/dionaea/binaries/
+data/cowrie/downloads/
+
+# Secrets
+*.env
+**/.env
+*.pem
+*.key
+**/secrets/
+**/*.secret
+credentials/
+
+# Build artifacts
+**/__pycache__/
+*.pyc
+**/.pytest_cache/
+*.egg-info/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+.DS_Store
+
+# Docker volumes
+**/volumes/
+
+# Git
+.git/

@@ -3,8 +3,19 @@
     databases:
       information_schema:
         path: ":memory:"
-      # example how to extend this
-      # just provide a databasename and path to the database
-      # the database can be altered by attackers, so ... better use a copy
-#      psn:
-#        path: "/path/to/cc_info.sqlite"
+      mysql:
+        path: ":memory:"
+      threat_intel_db:
+        path: ":memory:"
+      captured_creds:
+        path: ":memory:"
+      recon_data:
+        path: ":memory:"
+      webapp_prod:
+        path: ":memory:"
+      backups:
+        path: ":memory:"
+      malware_samples:
+        path: ":memory:"
+      honeypot_logs:
+        path: ":memory:"

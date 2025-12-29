@@ -125,14 +125,14 @@ capabilities:
       banner: "SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.8"
 
   http:
-    enabled: false
+    enabled: true
     port: 80
     timeout: 30
     protocol_specific_data:
       banner: ""
 
   https:
-    enabled: false
+    enabled: true
     port: 443
     timeout: 30
     protocol_specific_data:
@@ -189,7 +189,7 @@ capabilities:
     timeout: 30
 
   mysql:
-    enabled: false
+    enabled: true
     port: 3306
     timeout: 30
 

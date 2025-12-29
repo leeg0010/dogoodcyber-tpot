@@ -1,0 +1,31 @@
+networks:
+  heralding_local:
+
+services:
+
+# Heralding service with stealth enhancements
+  heralding:
+    build:
+      context: .
+      dockerfile: Dockerfile.stealth
+    container_name: heralding
+    restart: always
+    tmpfs:
+     - /tmp/heralding:uid=2000,gid=2000
+    networks:
+     - heralding_local
+    ports:
+     - "25:25"
+     - "110:110"
+     - "143:143"
+     - "465:465"
+     - "993:993"
+     - "995:995"
+     - "1080:1080"
+     - "3389:3389"
+     - "5432:5432"
+     - "5900:5900"
+    image: "heralding-stealth:custom"
+    read_only: true
+    volumes:
+     - $HOME/tpotce/data/heralding/log:/var/log/heralding

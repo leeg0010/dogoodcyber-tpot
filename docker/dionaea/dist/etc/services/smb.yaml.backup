@@ -11,9 +11,9 @@
     os_type: 4
 
      # Additional config
-    primary_domain: CORPORATE
-    oem_domain_name: CORPORATE
-    server_name: FILESERVER01
+    primary_domain: DACH
+    oem_domain_name: DACH
+    server_name: ADFS
 
      ## Windows 7 ##
     native_os: Windows 7 Professional 7600
@@ -32,26 +32,26 @@
       IPC$:
         comment: Remote IPC
         type: ipc
-      threat_intel:
-        comment: Threat Intelligence Data
-        path: D:\\ThreatIntel
-        type: disktree
-      captured_credentials:
-        comment: Captured Credentials
-        path: E:\\CapturedCreds
-        type: disktree
-      backups:
-        comment: System Backups
-        path: F:\\Backups
-        type: disktree
-      webapp:
-        comment: Web Application Data
-        path: G:\\WebApp
-        type: disktree
-      active_recon:
-        comment: Active Reconnaissance
-        path: H:\\ActiveRecon
-        type: disktree
       Printer:
         comment: Microsoft XPS Document Writer
         type: printq
+
+     ## Samba ##
+#    native_os: Windows 6.1
+#    native_lan_manager: Samba 4.3.11
+#    shares:
+#      admin:
+#        comment: Remote Admin
+#        path: \\home\\admin
+#        type: disktree
+#      share:
+#        comment: Default Share
+#        path: \\share
+#        type: disktree
+#      IPC$:
+#        comment: Remote IPC
+#        path: IPC Service
+#        type: ipc
+#      Printer:
+#        comment: Printer Drivers
+#        type: printq

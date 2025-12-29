@@ -14,8 +14,8 @@ RUN ARCH=$(arch) && \
     apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install wget -y && \
-    wget http://ftp.us.debian.org/debian/pool/main/libe/libemu/libemu2_0.2.0+git20120122-1.2+b1_$ARCH.deb \
-         http://ftp.us.debian.org/debian/pool/main/libe/libemu/libemu-dev_0.2.0+git20120122-1.2+b1_$ARCH.deb && \
+    wget http://snapshot.debian.org/archive/debian/20220901T000000Z/pool/main/libe/libemu/libemu2_0.2.0+git20120122-1.2+b1_$ARCH.deb \
+         http://snapshot.debian.org/archive/debian/20220901T000000Z/pool/main/libe/libemu/libemu-dev_0.2.0+git20120122-1.2+b1_$ARCH.deb && \
     apt-get install ./libemu2_0.2.0+git20120122-1.2+b1_$ARCH.deb \
                 ./libemu-dev_0.2.0+git20120122-1.2+b1_$ARCH.deb -y && \
     apt-get install -y --no-install-recommends \
@@ -124,3 +124,4 @@ STOPSIGNAL SIGINT
 HEALTHCHECK --interval=5m --timeout=30s --retries=3 CMD python3 /cpu_check.py $(pgrep -of dionaea) 99
 USER dionaea:dionaea
 CMD ["/opt/dionaea/sbin/dionaea", "-u", "dionaea", "-g", "dionaea", "-c", "/opt/dionaea/etc/dionaea/dionaea.cfg"]
+# Build: Sun Dec 28 03:39:03 PM MST 2025
