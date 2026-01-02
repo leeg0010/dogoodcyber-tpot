@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  cowrie:
+    image: ghcr.io/telekom-security/cowrie:24.04.1
+    container_name: cowrie
+    restart: always
+    ports:
+      - "22:22"
+      - "23:23"
+    tmpfs:
+      - /tmp/cowrie:uid=2000,gid=2000
+      - /tmp/cowrie/data:uid=2000,gid=2000
+    volumes:
+      - /home/l/tpotce/data/cowrie/downloads:/home/cowrie/cowrie/dl
+      - /home/l/tpotce/data/cowrie/keys:/home/cowrie/cowrie/etc
+      - /home/l/tpotce/data/cowrie/misc:/home/cowrie/cowrie/honeyfs
+      - /home/l/tpotce/data/cowrie/log:/home/cowrie/cowrie/log
+      - /home/l/tpotce/data/cowrie/tty:/home/cowrie/cowrie/tty
+    networks:
+      - cowrie_net
+    read_only: true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  h0neytr4p:
+    image: ghcr.io/telekom-security/h0neytr4p:24.04.1
+    container_name: h0neytr4p
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    tmpfs:
+      - /tmp/h0neytr4p:uid=2000,gid=2000
+    volumes:
+      - /home/l/tpotce/data/h0neytr4p/log:/opt/h0neytr4p/log
+      - /home/l/tpotce/data/h0neytr4p/payloads:/data/h0neytr4p/payloads
+    networks:
+      - h0neytr4p_net
+    read_only: true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  heralding:
+    image: ghcr.io/telekom-security/heralding:24.04.1
+    container_name: heralding
+    restart: always
+    ports:
+      - "993:993"
+      - "5900:5900"
+    tmpfs:
+      - /tmp/heralding:uid=2000,gid=2000
+    volumes:
+      - /home/l/tpotce/data/heralding/log:/var/log/heralding
+    networks:
+      - heralding_net
+    read_only: true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  logstash:
+    image: ghcr.io/telekom-security/logstash:24.04.1
+    container_name: logstash
+    restart: always
+    volumes:
+      - ./configs/logstash.conf:/etc/logstash/logstash.conf:ro
+      - /home/l/tpotce/data:/data:ro
+      - /var/log:/var/log:ro
+    networks:
+      - cowrie_net
+      - h0neytr4p_net
+      - heralding_net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9600"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  cowrie_net:
+    driver: bridge
+  h0neytr4p_net:
+    driver: bridge
+  heralding_net:
+    driver: bridge
